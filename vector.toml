@@ -7,12 +7,12 @@ type = "demo_logs"
 interval = 1.0
 format = "json"
 
-[transforms.parse_logs]
-type = "remap"
-inputs = ["demo_logs"]
-source = '''
-. = parse_syslog!(string!(.message))
-'''
+#[transforms.parse_logs]
+#type = "remap"
+#inputs = ["demo_logs"]
+#source = '''
+#. = parse_syslog!(string!(.message))
+#'''
 
 [sinks.console]
 inputs = ["demo_logs"]
@@ -22,7 +22,7 @@ encoding.codec = "json"
 
 [sinks.loki]
 type = "loki"
-inputs = [  "parse_logs"]
+inputs = [  "demo_logs"]
 endpoint = "${LOKIENDPOINT}"
 compression = "snappy"
 
