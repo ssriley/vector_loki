@@ -7,8 +7,35 @@ type = "demo_logs"
 interval = 1.0
 format = "json"
 
+[transforms.parse_logs]
+type = "remap"
+inputs = ["demo_logs"]
+source = '''
+. = parse_syslog!(string!(.message))
+'''
+
 [sinks.console]
 inputs = ["demo_logs"]
 target = "stdout"
 type = "console"
 encoding.codec = "json"
+
+[sinks.loki]
+type = "loki"
+inputs = [  "parse_logs"]
+endpoint = "${LOKIENDPOINT}"
+compression = "snappy"
+
+[sinks.loki.labels]
+#forwarder = "vector"
+service = "{{ appname }}"
+host = "{{ host }}"
+#message = "{{ message }}"
+
+[sinks.loki.encoding]
+codec = "json"
+  
+[sinks.loki.auth]
+password = "${LOKIPASS}"
+strategy = "basic"
+user = "${LOKIUSER}"
