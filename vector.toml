@@ -39,3 +39,6 @@ codec = "json"
 password = "${LOKIPASS}"
 strategy = "basic"
 user = "${LOKIUSER}"
+
+[sinks.loki.tls]
+verify_certificate = false
