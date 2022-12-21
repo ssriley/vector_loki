@@ -17,7 +17,7 @@ mode = "tcp"
 type = "remap"
 inputs = ["lc"]
 source = """
-parsed, err = parse_json(.message)
+parsed, err = parse_syslog(.message)
 if err == null {
   . |= parsed
 }
