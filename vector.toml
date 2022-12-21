@@ -38,8 +38,9 @@ compression = "snappy"
 
 [sinks.loki.labels]
 #forwarder = "vector"
-service = "{{ appname }}"
-host = "{{ host }}"
+event = "{{ .routing.event_type }}"
+host = "{{ .routing.hostname }}"
+
 #message = "{{ message }}"
 
 [sinks.loki.encoding]
