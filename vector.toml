@@ -8,27 +8,28 @@ address = "0.0.0.0:8686"
 #format = "json"
 
 [sources.lc]
-type = "syslog"
+type = "socket"
 address = "0.0.0.0:6514"
-max_length = 102_400
-mode = "tcp"
 
-#[transforms.parse_logs]
-#type = "remap"
-#inputs = ["demo_logs"]
-#source = '''
-#. = parse_syslog!(string!(.message))
-#'''
+[transforms.lctransform]
+type = "remap"
+inputs = ["lc"]
+source = """
+parsed, err = parse_syslog(.message)
+if err == null {
+  . |= parsed
+}
+"""
 
 [sinks.console]
-inputs = ["lc"]
+inputs = ["lctransform"]
 target = "stdout"
 type = "console"
 encoding.codec = "json"
 
 [sinks.loki]
 type = "loki"
-inputs = [  "lc"]
+inputs = [  "lctransform"]
 endpoint = "${LOKIENDPOINT}"
 compression = "snappy"
 
