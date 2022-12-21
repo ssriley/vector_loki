@@ -10,6 +10,8 @@ address = "0.0.0.0:8686"
 [sources.lc]
 type = "socket"
 address = "0.0.0.0:6514"
+max_length = 102_400
+mode = "tcp"
 
 [transforms.lctransform]
 type = "remap"
