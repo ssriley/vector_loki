@@ -38,8 +38,8 @@ compression = "snappy"
 
 [sinks.loki.labels]
 #forwarder = "vector"
-event = "{{ .routing.event_type }}"
-host = "{{ .routing.hostname }}"
+lc_event = "{{ .routing.event_type }}"
+lc_host = "{{ .routing.hostname }}"
 
 #message = "{{ message }}"
 
