@@ -53,3 +53,24 @@ user = "${LOKIUSER}"
 
 [sinks.loki.tls]
 verify_certificate = false
+
+[sinks.loki_detect]
+type = "loki"
+inputs = [  "lctransform"]
+endpoint = "${LOKIENDPOINT}"
+compression = "snappy"
+
+[sinks.loki_detect.labels]
+lc_detect = "{{ .detect_id.detect_mtd.description }}"
+lc_host = "{{ .namespace.routing.hostname }}"
+
+[sinks.loki_detect.encoding]
+codec = "json"
+  
+[sinks.loki_detect.auth]
+password = "${LOKIPASS}"
+strategy = "basic"
+user = "${LOKIUSER}"
+
+[sinks.loki_detect.tls]
+verify_certificate = false
