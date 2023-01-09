@@ -21,8 +21,8 @@ parsed, err = parse_syslog(.message)
 if err == null {
   . |= parsed
 }
-. = parse_json!(string!(.message))
 """
+#. = parse_json!(string!(.message))
 
 [sinks.console]
 inputs = ["lctransform"]
