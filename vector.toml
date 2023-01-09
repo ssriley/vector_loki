@@ -61,8 +61,8 @@ endpoint = "${LOKIENDPOINT}"
 compression = "snappy"
 
 [sinks.loki_detect.labels]
-lc_detect = "{{ .detect_id.detect_mtd.description }}"
-lc_host = "{{ .namespace.routing.hostname }}"
+lc_detect = "{{ .detect_mtd.description }}"
+lc_host = "{{ .routing.hostname }}"
 
 [sinks.loki_detect.encoding]
 codec = "json"
